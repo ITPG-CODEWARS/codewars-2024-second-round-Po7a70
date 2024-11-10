@@ -107,10 +107,10 @@ section {
     padding: 10rem;
 }
 
-/* Responsive styles for larger screens */
+
 @media (min-width: 768px) {
     .container {
-        width: 50%; /* Make the container narrower on large screens */
+        width: 50%; 
     }
 
     .container .nxtLink {
@@ -130,10 +130,10 @@ section {
     }
 }
 
-/* Further responsive styles for very small screens (e.g., mobile) */
+
 @media (max-width: 480px) {
     .container {
-        width: 90%; /* Make the container almost full width on mobile */
+        width: 90%; 
     }
 
     .container .nxtLink .linkholder {
