@@ -1,0 +1,2 @@
+console.log('Attempting to import ShortUrl from ./models/shortUrls.js');
+import ShortUrl from './models/shortUrls.js';

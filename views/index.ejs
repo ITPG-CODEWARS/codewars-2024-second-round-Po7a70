@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="/style.css">
+  <title>URL Shortener</title>
+</head>
+<body>
+  <div class="container">
+    <h1>URL Shrinker</h1>
+    
+    <!-- Form to input full URL -->
+    <form action="/shortUrls" method="POST" class="nxtLink">
+      <label for="fullUrl" class="fullUrl">Url</label>
+      <input required placeholder="Enter your URL" type="url" name="fullUrl" id="fullUrl" class="linkholder">
+      <button class="btn btn-success" type="submit">Shrink</button>
+    </form>
+    
+    <!-- Display list of URLs with click counts -->
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Full URL</th>
+          <th>Short URL</th>
+          <th>Clicks</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% shortUrls.forEach(shortUrl => { %>
+          <tr>
+            <td><a href="<%= shortUrl.full %>"><%= shortUrl.full %></a></td>
+            <td><a href="/<%= shortUrl.short %>">/<%= shortUrl.short %></a></td>
+            <td><%= shortUrl.clicks %></td>
+          </tr>
+        <% }); %>
+      </tbody>
+    </table>
+  </div>
+</body>
+</html>
+
