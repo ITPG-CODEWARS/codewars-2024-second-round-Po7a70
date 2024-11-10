@@ -11,40 +11,44 @@
   <div class="container">
     <h1>URL Shrinker</h1>
     
-    <!-- Form to input full URL -->
+    <!-- Form to input full URL and optional custom short URL -->
     <form action="/shortUrls" method="POST" class="nxtLink">
-      <label for="fullUrl" class="fullUrl">Url</label>
-      <input required placeholder="Enter your URL" type="url" name="fullUrl" id="fullUrl" class="linkholder">
+      <label for="fullUrl" class="fullUrl">Full URL</label>
+      <input required placeholder="Enter your full URL" type="url" name="fullUrl" id="fullUrl" class="linkholder">
+
+      <!-- Custom short URL (optional) -->
+      <label for="shortUrl" class="fullUrl">Custom Short URL (Optional)</label>
+      <input placeholder="Enter custom short URL" type="text" name="shortUrl" id="shortUrl" class="linkholder">
+      
       <button class="btn btn-success" type="submit">Shrink</button>
     </form>
     
     <!-- Display list of URLs with click counts -->
-  <div style="overflow-x: auto;">
-    <table class="table" >
-      <thead>
-        <tr class="head">
-          <th>Full URL</th>
-          <th>Short URL</th>
-          <th>Clicks</th>
-        </tr>
-      </thead>
-      <tbody>
-        <% shortUrls.forEach(shortUrl => { %>
-          
-          <tr>
-            <td><a href="<%= shortUrl.full %>"><%= shortUrl.full %></a></td>
-            <td><a href="/<%= shortUrl.short %>">/<%= shortUrl.short %></a></td>
-            <td><%= shortUrl.clicks %></td>
-            <td>
-              <!-- Form to send DELETE request -->
-              <form action="/delete/<%= shortUrl.short %>" method="POST" style="display:inline;">
-                <button type="submit" class="btn btn-danger">Delete</button>
-              </form>
-            </td>
+    <div style="overflow-x: auto;">
+      <table class="table">
+        <thead>
+          <tr class="head">
+            <th>Full URL</th>
+            <th>Short URL</th>
+            <th>Clicks</th>
           </tr>
-        <% }); %>
-      </tbody>
-    </table>
+        </thead>
+        <tbody>
+          <% shortUrls.forEach(shortUrl => { %>
+            <tr>
+              <td><a href="<%= shortUrl.full %>" target="_blank"><%= shortUrl.full %></a></td> <!-- Added target="_blank" -->
+              <td><a href="/<%= shortUrl.short %>" target="_blank">/<%= shortUrl.short %></a></td> <!-- Added target="_blank" -->
+              <td><%= shortUrl.clicks %></td>
+              <td>
+                <!-- Delete button -->
+                <form action="/delete/<%= shortUrl.short %>" method="POST" style="display:inline;">
+                  <button type="submit" class="btn btn-danger">Delete</button>
+                </form>
+              </td>
+            </tr>
+          <% }); %>
+        </tbody>
+      </table>
     </div>
   </div>
 </body>

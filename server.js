@@ -22,8 +22,6 @@ app.use(express.urlencoded({ extended: false }));
 // Serve static files (like CSS, JS, images)
 app.use(express.static('public'));
 
-
-
 // Route to display all URLs
 app.get('/', async (req, res) => {
   try {
@@ -38,12 +36,30 @@ app.get('/', async (req, res) => {
 // Route to handle URL shortening
 app.post('/shortUrls', async (req, res) => {
   try {
+    const { fullUrl, shortUrl: customShortUrl } = req.body; // Get full URL and custom short URL from form
+
+    let shortUrl;
+
+    if (customShortUrl) {
+      // Check if the custom short URL is already taken
+      const existingShortUrl = await ShortUrl.findOne({ short: customShortUrl });
+      if (existingShortUrl) {
+        return res.status(400).send('Custom short URL already taken, please choose another.');
+      }
+      // Use the custom short URL
+      shortUrl = customShortUrl;
+    } else {
+      // If no custom short URL, generate a random one
+      shortUrl = nanoid(7);
+    }
+
     // Create the new short URL
-    const shortUrl = new ShortUrl({
-      full: req.body.fullUrl, // the full URL entered by the user
+    const newShortUrl = new ShortUrl({
+      full: fullUrl,  // The full URL entered by the user
+      short: shortUrl, // Use custom or generated short URL
     });
 
-    await shortUrl.save();  // Save the new short URL
+    await newShortUrl.save();  // Save the new short URL
     res.redirect('/');  // Redirect to home after creation
   } catch (err) {
     console.error('Error creating short URL:', err);
@@ -72,12 +88,6 @@ app.get('/:short', async (req, res) => {
   }
 });
 
-// Start the server
-const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
-});
-
 // Route to handle deleting a short URL
 app.post('/delete/:short', async (req, res) => {
   try {
@@ -94,4 +104,10 @@ app.post('/delete/:short', async (req, res) => {
     console.error('Error deleting short URL:', err);
     res.status(500).send('Server Error');
   }
+});
+
+// Start the server
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
 });

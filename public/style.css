@@ -1,30 +1,36 @@
-:root{
-    --pink:#e84393; 
+:root {
+    --pink: #e84393;
 }
 
+::selection {
+    background: #ffbcdc;
+    color: #333;
+}
 
-*{
-    margin: 0; padding: 0;
+* {
+    margin: 0;
+    padding: 0;
     box-sizing: border-box;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
-    outline: none; border: none;
+    outline: none;
+    border: none;
     text-decoration: none;
     text-transform: capitalize;
-    transition: .2s linear; 
+    transition: .2s linear;
 }
 
-html{
+html {
     font-size: 62.5%;
     scroll-behavior: smooth;
     scroll-padding-top: 6rem;
     overflow-x: hidden;
-
 }
-section{
+
+section {
     padding: 2rem 9%;
 }
 
-.container{
+.container {
     box-sizing: border-box;
     margin: auto;
     margin-top: 10%;
@@ -35,40 +41,41 @@ section{
     padding-bottom: 1rem;
     font-size: 1.7rem;
     color: #333;
-    background:#fff;
+    background: #fff;
     border-radius: 5rem;
     text-align: center;
-
-}
-.container h1{
-    padding:2rem;
 }
 
-.container .nxtLink{   
+.container h1 {
+    padding: 2rem;
+}
+
+.container .nxtLink {
     padding-bottom: 3rem;
 }
-.container .nxtLink .linkholder{
-    margin:auto;
+
+/* Full URL input field */
+.container .nxtLink .linkholder {
+    margin: auto;
     padding: 1rem;
     border-radius: 2rem;
     border: .1rem solid var(--pink);
-    
+    width: 100%;
+    box-sizing: border-box;
 }
 
-.container .table{
-    overflow-x:auto;
-    margin: auto;
+/* Custom short URL input field */
+.container .nxtLink #shortUrl {
+    margin: 1.5rem auto;
+    padding: 1rem;
+    border-radius: 2rem;
+    border: .1rem solid var(--pink);
+    width: 100%;
+    box-sizing: border-box;
 }
 
-.container .table th {
-    text-align: left;
-    padding: 2rem;
-  }
-  .container .table .head{
-    padding: 10rem;
-  }
-
-.btn{
+/* Button styling */
+.container .btn {
     display: inline-block;
     margin-top: 1rem;
     border-radius: 5rem;
@@ -79,7 +86,61 @@ section{
     font-size: 1.7rem;
 }
 
-.btn:hover{
+/* Button hover effect */
+.container .btn:hover {
     background: var(--pink);
 }
 
+/* Table styling */
+.container .table {
+    overflow-x: auto;
+    margin: auto;
+    width: 100%;
+}
+
+.container .table th {
+    text-align: left;
+    padding: 2rem;
+}
+
+.container .table .head {
+    padding: 10rem;
+}
+
+/* Responsive styles for larger screens */
+@media (min-width: 768px) {
+    .container {
+        width: 50%; /* Make the container narrower on large screens */
+    }
+
+    .container .nxtLink {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .container .nxtLink .linkholder {
+        width: 80%;
+        margin-bottom: 1rem;
+    }
+
+    .container .nxtLink #shortUrl {
+        width: 80%;
+        margin-bottom: 1rem;
+    }
+}
+
+/* Further responsive styles for very small screens (e.g., mobile) */
+@media (max-width: 480px) {
+    .container {
+        width: 90%; /* Make the container almost full width on mobile */
+    }
+
+    .container .nxtLink .linkholder {
+        width: 100%;
+    }
+
+    .container .nxtLink #shortUrl {
+        width: 100%;
+    }
+}
