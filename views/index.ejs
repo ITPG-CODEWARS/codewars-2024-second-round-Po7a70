@@ -19,9 +19,10 @@
     </form>
     
     <!-- Display list of URLs with click counts -->
-    <table class="table">
+  <div style="overflow-x: auto;">
+    <table class="table" >
       <thead>
-        <tr>
+        <tr class="head">
           <th>Full URL</th>
           <th>Short URL</th>
           <th>Clicks</th>
@@ -29,14 +30,22 @@
       </thead>
       <tbody>
         <% shortUrls.forEach(shortUrl => { %>
+          
           <tr>
             <td><a href="<%= shortUrl.full %>"><%= shortUrl.full %></a></td>
             <td><a href="/<%= shortUrl.short %>">/<%= shortUrl.short %></a></td>
             <td><%= shortUrl.clicks %></td>
+            <td>
+              <!-- Form to send DELETE request -->
+              <form action="/delete/<%= shortUrl.short %>" method="POST" style="display:inline;">
+                <button type="submit" class="btn btn-danger">Delete</button>
+              </form>
+            </td>
           </tr>
         <% }); %>
       </tbody>
     </table>
+    </div>
   </div>
 </body>
 </html>

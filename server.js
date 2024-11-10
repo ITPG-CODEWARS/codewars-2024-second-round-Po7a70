@@ -78,3 +78,20 @@ app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
 
+// Route to handle deleting a short URL
+app.post('/delete/:short', async (req, res) => {
+  try {
+    // Find and delete the short URL by its 'short' field
+    const shortUrl = await ShortUrl.findOneAndDelete({ short: req.params.short });
+
+    if (!shortUrl) {
+      return res.status(404).send('Short URL not found');
+    }
+
+    // Redirect back to the home page after deletion
+    res.redirect('/');
+  } catch (err) {
+    console.error('Error deleting short URL:', err);
+    res.status(500).send('Server Error');
+  }
+});

@@ -25,9 +25,9 @@ section{
 }
 
 .container{
-    min-height: 10vh;
+    box-sizing: border-box;
     margin: auto;
-    margin-top: 25%;
+    margin-top: 10%;
     width: 60%;
     border: 3px solid var(--pink);
     padding: 4rem;
@@ -55,11 +55,18 @@ section{
     
 }
 
-.container .table td{
-    padding: 1rem 2rem;
-    text-decoration: none;
+.container .table{
+    overflow-x:auto;
+    margin: auto;
 }
 
+.container .table th {
+    text-align: left;
+    padding: 2rem;
+  }
+  .container .table .head{
+    padding: 10rem;
+  }
 
 .btn{
     display: inline-block;
